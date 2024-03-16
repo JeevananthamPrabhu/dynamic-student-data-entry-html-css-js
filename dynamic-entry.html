@@ -8,24 +8,26 @@
         input,select{
             padding: 5px 10px;
         }
-       input[type="number"]{
+        input[type="number"]{
         width: 50px;
-       }
-        table,th,td{
+        }
+        #entryTable, #entryTable th, #entryTable td{
             margin:  auto;
             margin-bottom: 30px;
             border: 2px solid gray;
             border-collapse:collapse;
             padding: 10px 20px;
         }
+        #dataTable, #dataTable th, #dataTable td{
+            margin:  auto;
+            margin-bottom: 30px;
+            border: 2px solid gray;
+            border-collapse:collapse;
+            padding: 10px 20px;
+            text-align: center;
+        }
         h1{
            text-align: center;
-        }
-        select#domain {
-           width: fit-content;
-        }
-        #new{
-            display: none;
         }
         #save{
             padding: 10px;
@@ -34,56 +36,55 @@
     </style>
 </head>
 <body>
-        <div class="container">
-                <h1>Dynamic Student Data Entry</h1>
-                <form action="" onsubmit="return add()">
-                    <table>
-                        <tr>
-                            <th><label for="name" >Name</label></th>
-                            <td><input type="text"  id="name" required></td>
-                        </tr>
-                        <tr>
-                            <th><label for="age">Age</label></th>
-                            <td><input type="number" id="age" min="10" max="99" required></td>
-                        </tr>
-                        <tr>
-                            <th><label for="gender">Gender</label></th>
-                            <td><input type="radio" id="male" value="Male " name="gender" required>
-                            <label for="male">Male</label>
-                            <input type="radio" id="female" value="female " name="gender" >
-                            <label for="female">Female</label></td>
-                        </tr>
-                        <tr>
-                            <th><label for="course">Course</label></th>
-                            <td>
-                                <select name="course" id="course">
-                                    <option value="javascript">Javascript</option>
-                                    <option value="HTML">HTML</option>
-                                    <option value="CSS">CSS</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><label for="email">Email</label></th>
-                            <td><input type="email" id="email" required></td>
-                        </tr>
-                        <tr>
-                            <th colspan="2"><button type="submit" id="save">Save</button></th>
-                        </tr>
-                    </table>
-                </form>
-                
-                <table  id="new">
-                        <tr>
-                            <th>NAME</th>
-                            <th>AGE</th>
-                            <th>COURSE</th>
-                            <th>GENDER</th>
-                            <th>EMAIL</th>
-                            <th>ACTION</th>
-                        </tr>
-                </table>
-        </div>
+        <h1>Dynamic Student Data Entry</h1>
+        <table id="entryTable">
+            <tr>
+                <th><label for="name" >Name</label></th>
+                <td><input type="text"  id="name" required></td>
+            </tr>
+            <tr>
+                <th><label for="age">Age</label></th>
+                <td><input type="number" id="age" min="10" max="99" required></td>
+            </tr>
+            <tr>
+                <th><label for="gender">Gender</label></th>
+                <td>
+                    <input type="radio" id="male" value="Male " name="gender" required>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" value="female " name="gender" >
+                    <label for="female">Female</label>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="course">Course</label></th>
+                <td>
+                    <select name="course" id="course">
+                        <option value="javascript">Javascript</option>
+                        <option value="HTML">HTML</option>
+                        <option value="CSS">CSS</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="email">Email</label></th>
+                <td><input type="email" id="email" required></td>
+            </tr>
+            <tr>
+                <th colspan="2"><button id="save" onclick="add()">Save</button></th>
+            </tr>
+        </table>
+        
+        <table  id="dataTable" style="display: none;">
+                <tr>
+                    <th>NAME</th>
+                    <th>AGE</th>
+                    <th>COURSE</th>
+                    <th>GENDER</th>
+                    <th>EMAIL</th>
+                    <th>ACTION</th>
+                </tr>
+        </table>
+        
         <script>
                 function add()
                 {   
@@ -92,7 +93,7 @@
                     const course=document.getElementById('course').value
                     const gender=document.querySelector('input[name="gender"]:checked').value
                     const email=document.getElementById('email').value
-                    const table=document.getElementById('new');
+                    const table=document.getElementById('dataTable');
                     table.style.display = 'table';
                     table.innerHTML+=`
                         <tr>
@@ -103,12 +104,11 @@
                             <td>${email}</td>
                             <td><button onclick='deleteRow(event)'>Delete</button></td>
                         </tr>`
-                    return false;
                 }
                 function deleteRow(event)
                 {
                     event.target.parentElement.parentElement.remove();
-                    if(document.getElementById('new').rows.length==1)document.getElementById('new').style.display = 'none';
+                    if(document.getElementById('dataTable').rows.length==1)document.getElementById('dataTable').style.display = 'none';
                 }
         </script>
 </body>
